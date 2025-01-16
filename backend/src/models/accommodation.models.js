@@ -12,8 +12,9 @@ const accommodationSchema = new mongoose.Schema({
     PointOfContact : 
         [
             {
-                type:mongoose.Schema.Types.ObjectId,
-                ref:'User',
+                name : {type : String},
+                PhoneNo : {type : String},
+                email : {type:String}
             }
         ],
     Amenities : {
