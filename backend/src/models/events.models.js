@@ -16,9 +16,14 @@ const eventsSchema = new mongoose.Schema({
         type: Date,
         require:true
     },
+    budget : {
+        type : Number,
+        require : true
+    }
+    
 
    
 
 }, {timestamps : true})
 
-export const TravelAgency = mongoose.Schema("TravelAgency", travelAgencySchema);
+export const Event = mongoose.Schema("Event", eventsSchema);
