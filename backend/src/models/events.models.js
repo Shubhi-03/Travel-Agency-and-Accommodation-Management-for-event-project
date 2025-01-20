@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const eventsSchema = new mongoose.Schema({
-    Name : {
+    name : {
         type : String, 
         require : true
     },
-    Description : {
+    description : {
         type: String
     },
     startDate : {
@@ -19,6 +19,9 @@ const eventsSchema = new mongoose.Schema({
     budget : {
         type : Number,
         require : true
+    },
+    remainingBudget : {
+        type : Number
     }
     
 

@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const travelAgencySchema = new mongoose.Schema({
-    Name : {
+    name : {
         type : String, 
         require : true
     },
-    PointOfContact : 
+    pointOfContact : 
         [
             {
                 name : {type : String},
@@ -13,7 +13,7 @@ const travelAgencySchema = new mongoose.Schema({
                 email : {type:String}
             }
         ],
-    Services : {
+    services : {
         type : [string], 
         require : true
     },

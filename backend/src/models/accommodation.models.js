@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 
 const accommodationSchema = new mongoose.Schema({
-    Name : {
+    name : {
         type : String, 
         require : true
     },
-    Address : {
+    address : {
         type : String,
         require : true
     },
-    PointOfContact : 
+    pointOfContact : 
         [
             {
                 name : {type : String},
@@ -17,11 +17,11 @@ const accommodationSchema = new mongoose.Schema({
                 email : {type:String}
             }
         ],
-    Amenities : {
+    amenities : {
         type : [string], 
         require : true
     },
-    Images : {
+    images : {
         type : [string]
     }
 
