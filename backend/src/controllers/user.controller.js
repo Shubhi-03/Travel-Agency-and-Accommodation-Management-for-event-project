@@ -21,7 +21,7 @@ const generateAccessAndRefreshToken = async(userId)=>{
 const registerUser = asyncHandler( async(req, res) => {
 const {name, email, phoneNumber, password, role } = req.body;
 if(
-    [name, email, phoneNumber, password, role].some((field)=>field.trim() === "")
+    [name, email, phoneNumber, password, role].some((field)=>field?.trim() === "")
 )
     {
         throw new ApiError(400, "All fields are required")
@@ -51,12 +51,11 @@ if(
 }
 )
 
-const loginUser = asyncHandler(async(req, res) => {
-
+const loginUser = asyncHandler(async(req, res)=>{
     const {email, password} = req.body;
 
-    if(!(password || email)) {
-        throw new ApiError (400, "email or password is required")
+    if(!(email)) {
+        throw new ApiError (400, "email is required")
     }
 
     const user = await User.findOne({email}) 
@@ -65,7 +64,7 @@ const loginUser = asyncHandler(async(req, res) => {
         throw new ApiError(404, "User does not exist")
     }
     const isPasswordValid = await user.isPasswordCorrect(password);
-    console.log(isPasswordValid)
+
     if(!isPasswordValid){
         throw new ApiError (401, "Password not correct")
     } 
@@ -74,10 +73,11 @@ const loginUser = asyncHandler(async(req, res) => {
     
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
     const options = {
-        httpOnly: true,
-        secure: true
+        httpOnly: true, // Set to true for security in production
+    maxAge: 1000 * 60 * 60 * 24,
+        secure:true,
+        sameSite: "None"
     }
-
     return res
     .status(200)
     .cookie("accessToken", accessToken, options)
@@ -92,6 +92,7 @@ const loginUser = asyncHandler(async(req, res) => {
         )
     )
 })
+
 
 const logoutUser = asyncHandler(async(req, res) => {
     await User.findByIdAndUpdate(

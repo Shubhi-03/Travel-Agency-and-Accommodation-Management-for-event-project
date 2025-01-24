@@ -1,13 +1,44 @@
+import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+import { removeUser } from "../utils/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-
+    
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
+  const {info, authenticated} = useSelector((store) => store.user)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleSignOut = async() =>{
+    try{
+      const data = await axios.post('users/logout',{},
+        {
+            headers: {
+                'Content-Type': 'application/json',
 
+            },
+            withCredentials:true
+        }
+  )
+      if(data.ApiError){
+          toast.error(data.ApiError.message)
+      }else{
+          
+          toast.success(' Logged out.')
+          
+          navigate('/login')
+          dispatch(removeUser());
+      }
+  }catch(error){
+      console.log(error);
+  }
+}
     return <>
     <div className="shadow-lg p-3 sm:flex sm:items-center sm:justify-between font-sans">
   <div className="flex justify-between">
@@ -38,10 +69,18 @@ const Header = () => {
       <li className="hover:border-b-2 border-gray-200 cursor-pointer"><Link to = "/services">Services</Link></li>
       <li className="hover:border-b-2 border-gray-200 cursor-pointer"><Link to = "/contacts">Contact Us</Link></li>
       <li>
+        {authenticated? <><button className="bg-gray-700 pr-2 pl-2 pt-1 pb-1 rounded-md text-gray-200 hover:bg-gray-800 transition" onClick={handleSignOut}>
+          Sign Out
+        </button></> : 
+        <>
         <button className="bg-gray-700 pr-2 pl-2 pt-1 pb-1 rounded-md text-gray-200 hover:bg-gray-800 transition">
-          <Link to = "/login">Sign In</Link>
+          <Link to = "/login">
+          Sign In
+          </Link>
           
         </button>
+        </>
+        }
       </li>
     </ul>
     
@@ -53,9 +92,18 @@ const Header = () => {
       <li className="hover:border-b-2 border-gray-200 cursor-pointer">Services</li>
       <li className="hover:border-b-2 border-gray-200 cursor-pointer">Contact Us</li>
       <li>
+      {authenticated? <><button className="bg-gray-700 pr-2 pl-2 pt-1 pb-1 rounded-md text-gray-200 hover:bg-gray-800 transition" onClick={handleSignOut}>
+          Sign Out
+        </button></> : 
+        <>
         <button className="bg-gray-700 pr-2 pl-2 pt-1 pb-1 rounded-md text-gray-200 hover:bg-gray-800 transition">
-        <Link to = "/login">Sign In</Link>
+          <Link to = "/login">
+          Sign In
+          </Link>
+          
         </button>
+        </>
+        }
       </li>
     </ul>
     
