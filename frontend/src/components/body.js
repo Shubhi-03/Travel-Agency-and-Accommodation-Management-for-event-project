@@ -14,6 +14,12 @@ import AdminDashboard from "../admin/dashboard.admin";
 import ClientDashboard from "../client/dashboard.client";
 import EventManagerDashboard from "../eventManager/dashboard.eventManager";
 import Unauthorized from "./unauthorized";
+import CreateAnEvent from "../eventManager/createAnEvent.eventManager";
+import TravelAgency from "../eventManager/travelAgency.eventManager";
+import Accommodations from "../eventManager/accommodations.eventManager";
+import Events from "../eventManager/events.eventManager";
+import Budget from "../eventManager/budget.eventManager";
+import SideBar from "../eventManager/sideBar.eventManager";
 
 const Layout = () => {
   return (
@@ -74,12 +80,27 @@ const Body = () => {
           element : <Unauthorized />,
         },
         {
-          path: "/admin",
+          path: "/eventManager",
           element: (
-            <PrivateRoute allowedRoles={["Admin"]}>
-              <AdminDashboard/>
-            </PrivateRoute>
-          )
+            <PrivateRoute allowedRoles={["EventManager"]}>
+      {/* Layout container for Sidebar and Outlet */}
+      <div className="flex min-h-screen">
+        <SideBar /> {/* Sidebar on the left */}
+        <div className="flex-1 p-4">
+          {/* Main content (child routes) */}
+          <Outlet />
+        </div>
+      </div>
+    </PrivateRoute>
+          ),
+          children : [
+            {path : "", element : <EventManagerDashboard/>},
+            {path : "createAnEvent", element : <CreateAnEvent/>},
+            {path : "travelAgency", element : <TravelAgency/>},
+            {path : "accommodation", element : <Accommodations/>},
+            {path : "events", element : <Events/>},
+            {path : "budget", element : <Budget/>}
+          ]
         },
         {
           path: "/client",
@@ -90,10 +111,10 @@ const Body = () => {
           )
         },
         {
-          path: "/eventmanager",
+          path: "/admin",
           element: (
-            <PrivateRoute allowedRoles={["EventManager"]}>
-              <EventManagerDashboard/>
+            <PrivateRoute allowedRoles={["Admin"]}>
+              <AdminDashboard/>
             </PrivateRoute>
           )
         }

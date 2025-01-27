@@ -22,7 +22,20 @@ const eventsSchema = new mongoose.Schema({
     },
     remainingBudget : {
         type : Number
-    }
+    },
+    venue : {
+        type : String,
+        require : true
+    },
+    client : [
+        {
+            name : String, 
+            phoneNumber : String,
+            email : String,
+            modeOfTravel : String,
+            accommodationDays : Number
+        }
+    ]
     
 
    

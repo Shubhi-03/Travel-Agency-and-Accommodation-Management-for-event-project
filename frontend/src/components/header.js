@@ -40,7 +40,7 @@ const Header = () => {
   }
 }
     return <>
-    <div className="shadow-lg p-3 sm:flex sm:items-center sm:justify-between font-sans">
+    <div className="shadow-lg p-3 sm:flex sm:items-center sm:justify-between font-sans bg-slate-300">
   <div className="flex justify-between">
 <h1 className="text-gray-800 font-semibold text-lg sm:text-xl"><Link to = "/">INSIDEOUT</Link></h1>
   <button

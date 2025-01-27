@@ -75,8 +75,8 @@ const loginUser = asyncHandler(async(req, res)=>{
     const options = {
         httpOnly: true, // Set to true for security in production
     maxAge: 1000 * 60 * 60 * 24,
-        secure:true,
-        sameSite: "None"
+        secure:false,
+        sameSite: "Strict"
     }
     return res
     .status(200)

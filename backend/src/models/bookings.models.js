@@ -24,6 +24,12 @@ const BookingsSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Accommodations'
     },
+    approvalStatus : {
+        type : Boolean
+    },
+    status : {
+        type : String
+    }
 
 }, {timestamps : true})
 

@@ -5,10 +5,12 @@ const EventManagerSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
     },
-    events : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'Events'
-    }
+    events : 
+        [
+            {type : mongoose.Schema.Types.ObjectId,
+            ref : 'Events'}
+        ]
+    
 
 }, {timestamps : true})
 
