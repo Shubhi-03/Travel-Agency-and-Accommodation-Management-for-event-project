@@ -51,10 +51,7 @@ const Body = () => {
       path: "/",
       element: <Layout />, // Wrap all routes with the Layout component
       children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
+        
         {
           path: "/login",
           element: <Login />,
@@ -85,10 +82,9 @@ const Body = () => {
             <PrivateRoute allowedRoles={["EventManager"]}>
       {/* Layout container for Sidebar and Outlet */}
       <div className="flex min-h-screen">
-        <SideBar /> {/* Sidebar on the left */}
+        <SideBar /> 
         <div className="flex-1 p-4">
-          {/* Main content (child routes) */}
-          <Outlet />
+        <Outlet />
         </div>
       </div>
     </PrivateRoute>

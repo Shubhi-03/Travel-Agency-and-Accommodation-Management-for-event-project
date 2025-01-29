@@ -29,17 +29,22 @@ const eventsSchema = new mongoose.Schema({
     },
     client : [
         {
-            name : String, 
-            phoneNumber : String,
-            email : String,
-            modeOfTravel : String,
-            accommodationDays : Number
+            name : {type : String}, 
+            phoneNumber : {type : String},
+            email : {type : String},
+            modeOfTravel : {type : String},
+            accommodationDays : {type : Number}
         }
-    ]
+    ],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User", 
+        required: true,
+      },
     
 
    
 
 }, {timestamps : true})
 
-export const Event = mongoose.Schema("Event", eventsSchema);
+export const Event = mongoose.model("Event", eventsSchema);

@@ -41,9 +41,7 @@ const Login = () =>{
                     navigate("/eventmanager");
                   } else if (role === "Client") {
                     navigate("/client");
-                  } else {
-                    navigate("/"); 
-                  }
+                  } 
                   
               }
           }catch(error){

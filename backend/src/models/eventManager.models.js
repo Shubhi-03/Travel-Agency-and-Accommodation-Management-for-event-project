@@ -14,4 +14,4 @@ const EventManagerSchema = new mongoose.Schema({
 
 }, {timestamps : true})
 
-export const EventManager = mongoose.Schema('EventManager', EventManagerSchema)
+export const EventManager = mongoose.model('EventManager', EventManagerSchema)
