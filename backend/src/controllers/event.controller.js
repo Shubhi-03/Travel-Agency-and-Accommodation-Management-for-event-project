@@ -3,7 +3,6 @@ import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import  nodemailer from "nodemailer"
-import dotenv from "dotenv";
 
 const transporter = nodemailer.createTransport({
     secure : true,
