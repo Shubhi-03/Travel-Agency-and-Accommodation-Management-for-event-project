@@ -17,7 +17,7 @@ const Header = () => {
   const navigate = useNavigate();
   const handleSignOut = async() =>{
     try{
-      const data = await axios.post('users/logout',{},
+      const data = await axios.post('/api/v1/users/logout',{},
         {
             headers: {
                 'Content-Type': 'application/json',

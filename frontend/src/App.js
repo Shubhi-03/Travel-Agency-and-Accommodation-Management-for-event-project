@@ -1,12 +1,11 @@
 
 import { Provider } from "react-redux";
-
 import appStore from "./utils/appStore";
 import Body from "./components/body";
 import axios from "axios";
 import {Toaster} from 'react-hot-toast';
-axios.defaults.baseURL = 'http://localhost:3000/api/v1/';
-// axios.defaults.withCredentials = true
+
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_API;
 function App() {
   return (
       <Provider store = {appStore}>

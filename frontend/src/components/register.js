@@ -21,7 +21,7 @@ const Register = () =>{
             const { email, password, name, phoneNumber, role} = data
            
             try{
-              const response = await axios.post('users/register',{
+              const response = await axios.post('/api/v1/users/register',{
                   email, password, name, phoneNumber, role
               },
               {

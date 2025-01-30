@@ -11,8 +11,7 @@ connectDB()
 .then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);
-        console.log("EMAIL_SERVICE_ID:", `"${process.env.EMAIL_SERVICE_ID}"`);
-console.log("EMAIL_SERVICE_PASSWORD:", `"${process.env.EMAIL_SERVICE_PASSWORD}"`);
+        
 
     });
     

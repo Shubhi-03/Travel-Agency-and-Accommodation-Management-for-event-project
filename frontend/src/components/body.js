@@ -8,7 +8,6 @@ import About from "./about";
 import Services from "./services";
 import Contact from "./contact";
 import Header from "./header"; // Assuming you have a separate Header component
-import Home from "./home";
 import { useSelector } from "react-redux";
 import AdminDashboard from "../admin/dashboard.admin";
 import ClientDashboard from "../client/dashboard.client";
@@ -25,7 +24,6 @@ const Layout = () => {
   return (
     <>
       <Header />
-
       <div className="">
         <Outlet />
       </div>
@@ -48,7 +46,7 @@ const PrivateRoute = ({ children, allowedRoles }) => {
 const Body = () => {
   const appRouter = createBrowserRouter([
     {
-      path: "/",
+      path: "",
       element: <Layout />, // Wrap all routes with the Layout component
       children: [
         
@@ -80,7 +78,6 @@ const Body = () => {
           path: "/eventManager",
           element: (
             <PrivateRoute allowedRoles={["EventManager"]}>
-      {/* Layout container for Sidebar and Outlet */}
       <div className="flex min-h-screen">
         <SideBar /> 
         <div className="flex-1 p-4">

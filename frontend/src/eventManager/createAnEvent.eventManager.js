@@ -55,7 +55,7 @@ const CreateAnEvent = () => {
         e.preventDefault();
         const {name, venue, budget, startDate, endDate, description, client} = data
         try{
-         const response = await axios.post('/events/createAnEvent',
+         const response = await axios.post('/api/v1/events/createAnEvent',
           {name, venue, budget, startDate, endDate, description, client},
           {withCredentials : true}
          ) 
