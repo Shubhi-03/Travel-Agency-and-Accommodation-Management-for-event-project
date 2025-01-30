@@ -3,14 +3,17 @@ import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import  nodemailer from "nodemailer"
+import dotenv from "dotenv";
+
 const transporter = nodemailer.createTransport({
     secure : true,
     host : "smtp.gmail.com",
     port : 465,
     auth : {
-        user : process.env.EMAIL_SERVICE_ID,
-        pass : process.env.EMAIL_SERVICE_PASSWORD
+        user: `<${process.env.EMAIL_SERVICE_ID}>`,
+        pass: `<${process.env.EMAIL_SERVICE_PASSWORD}>`
     }
+    
 })
 const sendMail = async(to, subject,text, html) => {
     try{
@@ -46,7 +49,8 @@ const eventCreated = await Event.create({
     createdBy:req.user.id
 })
 if(!eventCreated) throw new ApiError(400, "Something went wrong while creating an event.")
-const clientEmails = await client.map(async(c)=>{
+    const clientsArray = Array.isArray(client) ? client : [client];
+const clientEmails = clientsArray?.map(async(c)=>{
     if (!c.email) {
         console.warn(`Client ${c.name || "unknown"} does not have an email address.`);
         return;
