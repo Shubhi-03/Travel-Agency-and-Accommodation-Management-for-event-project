@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 app.use(cors({
-  origin: ["https://travel-agency-and-accommodation-management-for-event-csezzacgt.vercel.app", "http://localhost:3001"], 
+  origin: [process.env.ORIGIN, "http://localhost:3001"], 
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true 
