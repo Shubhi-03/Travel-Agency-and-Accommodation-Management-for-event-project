@@ -4,13 +4,12 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 app.use(cors({
-  origin: "https://travel-agency-and-accommodation-management-for-event-5v37639s2.vercel.app",  // Replace with frontend URL (Vercel domain if deployed)
+  origin: process.env.ORIGIN || "http://localhost:3001", 
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
+  credentials: true 
 }));
 
-// ✅ Handle Preflight Requests
 app.options('*', cors());
 
 app.use(express.json({limit: "16kb"}))
