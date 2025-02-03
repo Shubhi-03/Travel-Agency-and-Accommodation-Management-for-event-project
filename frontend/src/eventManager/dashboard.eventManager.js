@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux"
-import SideBar from "./sideBar.eventManager"
 
 const EventManagerDashboard = () =>{
     let {info} = useSelector((store) => store.user)

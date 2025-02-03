@@ -2,7 +2,7 @@ import { useState } from "react";
 import login from "../utils/login.jpeg"
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../utils/userSlice.js";
 import axios from "axios";
 import toast from "react-hot-toast";
 

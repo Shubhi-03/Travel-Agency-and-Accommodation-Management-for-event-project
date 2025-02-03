@@ -1,10 +1,9 @@
-import Header from "./header";
 import login from "../utils/login.jpeg"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../utils/userSlice.js";
 import axios from "axios";
 const Login = () =>{
     const [data, setData] = useState({

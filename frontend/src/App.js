@@ -1,7 +1,7 @@
 
 import { Provider } from "react-redux";
-import appStore from "./utils/appStore";
-import Body from "./components/body";
+import appStore from "./utils/appStore.js";
+import Body from "./components/body.js";
 import axios from "axios";
 import {Toaster} from 'react-hot-toast';
 

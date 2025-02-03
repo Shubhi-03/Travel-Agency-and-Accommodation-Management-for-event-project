@@ -2,8 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-import { removeUser } from "../utils/userSlice";
+import { removeUser } from "../utils/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {

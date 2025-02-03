@@ -2,23 +2,23 @@
 
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
-import Login from "./login";
-import Register from "./register";
-import About from "./about";
-import Services from "./services";
-import Contact from "./contact";
-import Header from "./header"; // Assuming you have a separate Header component
+import Login from "./login.js";
+import Register from "./register.js";
+import About from "./about.js";
+import Services from "./services.js";
+import Contact from "./contact.js";
+import Header from "./header.js"; // Assuming you have a separate Header component
 import { useSelector } from "react-redux";
-import AdminDashboard from "../admin/dashboard.admin";
-import ClientDashboard from "../client/dashboard.client";
-import EventManagerDashboard from "../eventManager/dashboard.eventManager";
-import Unauthorized from "./unauthorized";
-import CreateAnEvent from "../eventManager/createAnEvent.eventManager";
-import TravelAgency from "../eventManager/travelAgency.eventManager";
-import Accommodations from "../eventManager/accommodations.eventManager";
-import Events from "../eventManager/events.eventManager";
-import Budget from "../eventManager/budget.eventManager";
-import SideBar from "../eventManager/sideBar.eventManager";
+import AdminDashboard from "../admin/dashboard.admin.js";
+import ClientDashboard from "../client/dashboard.client.js";
+import EventManagerDashboard from "../eventManager/dashboard.eventManager.js";
+import Unauthorized from "./unauthorized.js";
+import CreateAnEvent from "../eventManager/createAnEvent.eventManager.js";
+import TravelAgency from "../eventManager/travelAgency.eventManager.js";
+import Accommodations from "../eventManager/accommodations.eventManager.js";
+import Events from "../eventManager/events.eventManager.js";
+import Budget from "../eventManager/budget.eventManager.js";
+import SideBar from "../eventManager/sideBar.eventManager.js";
 
 const Layout = () => {
   return (

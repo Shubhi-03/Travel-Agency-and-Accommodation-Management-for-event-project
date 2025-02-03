@@ -1,8 +1,10 @@
+import  jwt from "jsonwebtoken";
 import { Event } from "../models/events.models.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import  nodemailer from "nodemailer"
+import { EventManager } from "../models/eventManager.models.js";
 
 const transporter = nodemailer.createTransport({
     secure : true,
@@ -78,4 +80,27 @@ return res
 )
 }) 
 
-export {createAnEvent};
+const getEventList = asyncHandler(async (req, res) => {
+    try {
+        const token = req.cookies.accessToken;
+        if (!token) throw new ApiError(401, null, "Access Token is missing.");
+
+        const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        if (!payload) {
+            return res.status(401).json(new ApiResponse(401, null, "Invalid Token"));
+        }
+
+        const userId = payload._id;
+        const events = await Event.find({ createdBy: userId });
+
+        if (!events.length) {
+            return res.status(200).json(new ApiResponse(200, [], "No Events."));
+        }
+
+        return res.status(200).json(new ApiResponse(200, events, "Events retrieved successfully."));
+    } catch (error) {
+        return res.status(500).json(new ApiResponse(500, error, "Something went wrong while fetching the events."));
+    }
+});
+
+export {createAnEvent, getEventList};
