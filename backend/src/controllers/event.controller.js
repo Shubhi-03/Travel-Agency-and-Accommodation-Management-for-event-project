@@ -103,4 +103,8 @@ const getEventList = asyncHandler(async (req, res) => {
     }
 });
 
+const deleteList = asyncHandler(async(req, res) =>{
+    
+})
+
 export {createAnEvent, getEventList};
