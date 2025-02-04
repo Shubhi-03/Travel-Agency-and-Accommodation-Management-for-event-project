@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux"
+import useEventList from "../hooks/useEventsList.js";
 
 const EventManagerDashboard = () =>{
+   
     let {info} = useSelector((store) => store.user)
     info = info.data.data.user
     console.log(info)

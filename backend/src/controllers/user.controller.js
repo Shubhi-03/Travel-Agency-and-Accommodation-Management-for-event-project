@@ -45,7 +45,17 @@ if(
     if(!createdUser){
         throw new ApiError(500, "Something went wrong while registering.")
     }
-    return res.status(201).json(
+    const options = {
+        httpOnly: true, // Set to true for security in production
+    maxAge: 1000 * 60 * 60 * 24,
+        secure:process.env.NODE_ENV === 'production',
+        sameSite: "Strict"
+    }
+    return res
+    .status(201)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
         new ApiResponse(201, createdUser, "User registered successfully.")
     )
 }
@@ -75,7 +85,7 @@ const loginUser = asyncHandler(async(req, res)=>{
     const options = {
         httpOnly: true, // Set to true for security in production
     maxAge: 1000 * 60 * 60 * 24,
-        secure:false,
+        secure:process.env.NODE_ENV === 'production',
         sameSite: "Strict"
     }
     return res
