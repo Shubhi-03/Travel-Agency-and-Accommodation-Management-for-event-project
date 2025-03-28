@@ -18,13 +18,13 @@ const accommodationSchema = new mongoose.Schema({
             }
         ],
     amenities : {
-        type : [string], 
+        type : [String], 
         require : true
     },
     images : {
-        type : [string]
+        type : [String]
     }
 
 }, {timestamps : true})
 
-export const Accommodation = mongoose.Schema("Accommodation", accommodationSchema);
+export const Accommodation = mongoose.model("Accommodation", accommodationSchema);

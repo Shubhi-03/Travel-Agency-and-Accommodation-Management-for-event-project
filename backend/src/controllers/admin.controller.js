@@ -6,6 +6,7 @@ import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.models.js";
+import { Client } from "../models/client.models.js";
 
 const getTravelAgency = asyncHandler(async(req, res) =>{
     const agencies = await TravelAgency.find(); 
@@ -17,12 +18,12 @@ const getTravelAgency = asyncHandler(async(req, res) =>{
 })
 
 const getAccommodationList = asyncHandler(async(req, res) =>{
-    const agencies = await TravelAgency.find(); 
+    const agencies = await Accommodation.find(); 
     if (agencies.length === 0) {
-        return res.status(200).json(new ApiResponse(200, [], "No travel agencies found."));
+        return res.status(200).json(new ApiResponse(200, [], "No Accommodations found."));
     }
 
-    return res.status(200).json(new ApiResponse(200, agencies, "Travel agencies fetched successfully."));
+    return res.status(200).json(new ApiResponse(200, agencies, "Accommodations fetched successfully."));
 })
 const getEventManagerList = asyncHandler(async (req, res) => {
     const eventManagers = await User.find({ role: "EventManager" });
@@ -77,7 +78,17 @@ const removeEventManager = asyncHandler(async(req, res) => {
     .json(new ApiResponse(200, deletedEventManager, "Event Manager is deleted."))
 })
 
+const removeClient = asyncHandler(async(req, res)=>{
+    const clientId = req.query.clientId; 
 
+    const deletedclient = await Client.findByIdAndDelete(clientId);
+    if(!deletedclient){
+        throw new ApiError(404, "Client not Found.");
+    }
+    return res
+    .status(200)
+    .json(new ApiResponse(200, deletedclient, "Client is deleted."))
+})
 
 const addTravelAgency = asyncHandler(async (req, res) => {
     const { name, pointOfContact, services } = req.body;
@@ -151,6 +162,7 @@ export {
     removeEvent,
     removeEventManager, 
     removeTravelAgency,
+    removeClient,
     addAccommodation,
     addTravelAgency,
     getEventManagerList,

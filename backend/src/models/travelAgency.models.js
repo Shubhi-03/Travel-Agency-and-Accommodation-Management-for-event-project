@@ -14,10 +14,10 @@ const travelAgencySchema = new mongoose.Schema({
             }
         ],
     services : {
-        type : [string], 
+        type : [String], 
         require : true
     },
 
 }, {timestamps : true})
 
-export const TravelAgency = mongoose.Schema("TravelAgency", travelAgencySchema);
+export const TravelAgency = mongoose.model("TravelAgency", travelAgencySchema);

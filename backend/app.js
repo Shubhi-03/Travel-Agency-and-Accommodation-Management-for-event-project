@@ -45,6 +45,14 @@ app.use(cookieParser())
 
 import userRouter from './src/routes/user.routes.js';
 import eventRouter from './src/routes/event.routes.js';
+import clientRouter from './src/routes/client.routes.js';
+import adminRouter from './src/routes/admin.routes.js';
+import bookingRouter from './src/routes/booking.routes.js';
+import guestRouter from './src/routes/guest.routes.js';
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/events", eventRouter)
+app.use("/api/v1/clients", clientRouter)
+app.use("/api/v1/admin", adminRouter)
+app.use("/api/v1/booking", bookingRouter)
+app.use("/api/v1/guest", guestRouter)
 export { app };

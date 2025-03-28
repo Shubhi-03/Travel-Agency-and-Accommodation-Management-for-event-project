@@ -20,4 +20,4 @@ const GuestSchema = new mongoose.Schema({
 
 }, {timestamps : true})
 
-export const Guest = mongoose.Schema("Guest", GuestSchema)
+export const Guest = mongoose.model("Guest", GuestSchema)

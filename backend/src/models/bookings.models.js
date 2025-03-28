@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const BookingsSchema = new mongoose.Schema({
     guest : {
-        type : mongoose.type.Schema.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
     },
     travelDetails : {
@@ -33,4 +33,4 @@ const BookingsSchema = new mongoose.Schema({
 
 }, {timestamps : true})
 
-export const booking = mongoose.Schema('booking', BookingsSchema)
+export const booking = mongoose.model('booking', BookingsSchema)
