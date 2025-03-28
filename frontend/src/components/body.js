@@ -19,6 +19,18 @@ import Accommodations from "../eventManager/accommodations.eventManager.js";
 import Events from "../eventManager/events.eventManager.js";
 import Budget from "../eventManager/budget.eventManager.js";
 import SideBar from "../eventManager/sideBar.eventManager.js";
+import ClientEvents from "../client/events.client.js";
+import TravelAgencyClient from "../client/travelAgency.js";
+import AccommodationClient from "../client/accommodation.client.js";
+import Booking from "../client/booking.client.js";
+import AdminSideBar from "../admin/sideBar.admin.js";
+import EventManagerManagement from "../admin/eventManagerManagement.js";
+import EventManagement from "../admin/eventManagement.js";
+import AccommodationsManagement from "../admin/accommodationManage.js";
+import TravelAgencyManagement from "../admin/travelAgencyManage.js";
+import BudgetManagement from "../admin/budgetManage.js";
+import GuestForm from "./guestForm.js";
+import ClientSideBar from "../client/sideBar.client.js";
 
 const Layout = () => {
   return (
@@ -37,7 +49,7 @@ const PrivateRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/login" />;
   }
   console.log(allowedRoles)
-  if (!allowedRoles.includes(info.data.data.user.role)) {
+  if (!allowedRoles.includes(info?.data?.data?.user.role)) {
     return <Navigate to="/unauthorized" />;
   }
 
@@ -75,6 +87,10 @@ const Body = () => {
           element : <Unauthorized />,
         },
         {
+          path: "/guestForm",
+          element : <GuestForm/>
+        },
+        {
           path: "/eventManager",
           element: (
             <PrivateRoute allowedRoles={["EventManager"]}>
@@ -89,8 +105,6 @@ const Body = () => {
           children : [
             {path : "", element : <EventManagerDashboard/>},
             {path : "createAnEvent", element : <CreateAnEvent/>},
-            {path : "travelAgency", element : <TravelAgency/>},
-            {path : "accommodation", element : <Accommodations/>},
             {path : "events", element : <Events/>},
             {path : "budget", element : <Budget/>}
           ]
@@ -99,17 +113,43 @@ const Body = () => {
           path: "/client",
           element: (
             <PrivateRoute allowedRoles={["Client"]}>
-              <ClientDashboard/>
-            </PrivateRoute>
-          )
+      <div className="flex min-h-screen">
+        <ClientSideBar /> 
+        <div className="flex-1 p-4">
+        <Outlet />
+        </div>
+      </div>
+    </PrivateRoute>
+          ),
+          children : [
+            {path : "", element : <ClientDashboard/>},
+            {path : "events", element : <ClientEvents/>},
+            {path : "travelAgency", element : <TravelAgencyClient/>},
+            {path : "accommodation", element : <AccommodationClient/>},
+            {path : "booking", element : <Booking/>},
+            {path : "budget", element : <Budget/>}
+          ]
         },
         {
           path: "/admin",
           element: (
             <PrivateRoute allowedRoles={["Admin"]}>
-              <AdminDashboard/>
-            </PrivateRoute>
-          )
+      <div className="flex min-h-screen">
+        <AdminSideBar /> 
+        <div className="flex-1 p-4">
+        <Outlet />
+        </div>
+      </div>
+    </PrivateRoute>
+          ),
+          children : [
+            {path : "", element : <AdminDashboard/>},
+            {path : "eventManagerManagement", element : <EventManagerManagement/>},
+            {path : "eventManagement", element : <EventManagement/>},
+            {path : "accommodationsManagement", element : <AccommodationsManagement/>},
+            {path : "travelAgencyManagement", element : <TravelAgencyManagement/>},
+            {path : "budget", element : <BudgetManagement/>}
+          ]
         }
       ],
     },

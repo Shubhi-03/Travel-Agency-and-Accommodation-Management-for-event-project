@@ -7,8 +7,6 @@ const SideBar = () => {
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "">DashBoard</Link></li>
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "createAnEvent">Create An Event</Link></li>
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "events">Events</Link></li>
-            <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "travelAgency">Travel Agency</Link></li>
-            <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "accommodation">Accommodations</Link></li>
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "budget">Budget</Link></li>
         </ul>
     </div>

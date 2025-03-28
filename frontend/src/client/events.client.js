@@ -4,10 +4,10 @@ import useGuestList from "../hooks/useGuestList.js";
 import EventContainer from "./eventContainer.js";
 
 const ClientEvents = () =>{
-    let {info} = useSelector((store) => store.user)
-    info = info.data.data.user
+    const info = useSelector((store) => store.user.info.data.data.user)
     useClientEvent(info.email);
     const events = useSelector((store)=>store?.client?.event)
+    console.log(events)
     const latestEvent = events[0]
     useGuestList(latestEvent?._id);
     const guestList = useSelector((store)=>store?.client?.guestList)

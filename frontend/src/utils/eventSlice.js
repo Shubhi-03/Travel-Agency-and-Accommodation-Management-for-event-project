@@ -7,7 +7,6 @@ const EventSlice = createSlice({
   },
   reducers: {
     addEvent: (state, action) => {
-      console.log("Dispatching events to Redux:", action.payload);
       state.event = action.payload;
     },
   },

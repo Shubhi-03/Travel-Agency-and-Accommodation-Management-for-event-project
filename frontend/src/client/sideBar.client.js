@@ -6,6 +6,9 @@ const ClientSideBar = () => {
         <ul className="text-center font-semibold p-2 text-lg text-gray-700">
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "">DashBoard</Link></li>
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "events">Events</Link></li>
+            <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "travelAgency">Travel Agency</Link></li>
+            <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "accommodation">Accommodation</Link></li>
+            <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "booking">Bookings</Link></li>
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "budget">Budget</Link></li>
         </ul>
     </div>

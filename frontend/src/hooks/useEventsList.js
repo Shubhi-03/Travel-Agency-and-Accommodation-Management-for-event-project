@@ -16,10 +16,8 @@ const useEventList = () => {
       });
       
       const events = response.data.data;
-      console.log(events)
       dispatch(addEvent(events));
     } catch (error) {
-      console.error("Error fetching events: ", error);
     }
   };
 

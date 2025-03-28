@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link, UserPlus } from "lucide-react";
+import { Minus, PlusIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -26,9 +26,6 @@ const EventContainer = ({event, guestList}) =>{
                 toast.error(error.message)
         }
       }
-      const copyInviteLink = () => {
-        
-      };
     return <>
     <div className="flex flex-col ">
             <div className=" text-3xl font-bold text-gray-700 rounded-md text-center p-2">{event?.name}</div>
@@ -38,8 +35,8 @@ const EventContainer = ({event, guestList}) =>{
             </div>
             <div className="text-2xl font-bold text-gray-700 rounded-md text-left p-2 border-t-2 border-b-2 border-gray-300 mt-6 mb-6">Guest Details:</div>
             <div className="flex gap-4 mb-4 items-end">
-        <button  className="flex items-center font-medium text-lg gap-2 px-2 py-1 bg-gray-500 hover:bg-gray-700 text-white rounded">
-          <Link size={18} /> Invite Link
+        <button  className="flex items-center font-medium text-lg gap-2 px-2 py-1 bg-gray-500 hover:bg-gray-700 text-white rounded" onClick={()=>addGuest()}>
+          <PlusIcon size={18} /> Add guest
         </button>
       </div>
       {isOpen && (
@@ -52,7 +49,7 @@ const EventContainer = ({event, guestList}) =>{
               className="text-xl font-bold text-gray-600"
               onClick={() => setIsOpen(false)}
             >
-              —
+            <Minus size={18}/>
             </button>
           </div>
 
