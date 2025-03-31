@@ -16,6 +16,7 @@ const EventContainer = ({event, guestList}) =>{
       const handleSubmit = async(e) => {
         e.preventDefault();
         const {name, email, phoneNumber} = data
+        console.log(event._id)
         try{
             const response = await axios.post(`/api/v1/clients/addGuest?eventId=${event._id}`, 
                         {name, email, phoneNumber}, {withCredentials : true}

@@ -9,8 +9,6 @@ const AdminSideBar = () => {
         <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "eventManagement">Event Management</Link></li>
         <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "travelAgencyManagement">Travel Agency Management</Link></li>
         <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "accommodationsManagement">Accommodations Management</Link></li>
-        <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "budgetManagement">Budget Management</Link></li>
-
         </ul>
     </div>
     </>

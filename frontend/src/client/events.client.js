@@ -11,6 +11,7 @@ const ClientEvents = () =>{
     const latestEvent = events[0]
     useGuestList(latestEvent?._id);
     const guestList = useSelector((store)=>store?.client?.guestList)
+    console.log(guestList)
     
 
     return <>

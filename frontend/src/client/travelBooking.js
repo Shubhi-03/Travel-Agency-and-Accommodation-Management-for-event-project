@@ -8,12 +8,13 @@ const TravelBooking = ({ travelAgency }) => {
   const user = useSelector((store)=>store.client.selectedGuest);
   console.log(user);
   const [data, setData] = useState({
-    guest: user._id || "",  // Ensure guest is sent
+    guest: user._id || "",  
     travelDetails: {
       arrivalDate: "",
       departureDate: user.departure_date || "",
       preference: "",
       venue: user.location || "",
+      budget: ""
     },
     status: "Pending",
     approvalStatus: "Pending",
@@ -40,10 +41,11 @@ const TravelBooking = ({ travelAgency }) => {
             arrivalDate: "",
             departureDate: "",
             preference: "",
-            venue: ""
+            venue: "",
+            budget: ""
           },
           status: "pending",
-          approvalStatus: "pending",
+          travelApprovalStatus: "pending",
         });
       } else {
         toast.error("Failed to confirm booking. Please try again.");
@@ -142,6 +144,25 @@ const TravelBooking = ({ travelAgency }) => {
                 travelDetails: {
                   ...data.travelDetails,
                   preference: e.target.value,
+                },
+              })
+            }
+            className="w-full p-2 border rounded-lg mt-1 focus:outline-none focus:ring focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-medium">
+            budget
+          </label>
+          <input
+            type="text"
+            value={data.travelDetails.budget}
+            onChange={(e) =>
+              setData({
+                ...data,
+                travelDetails: {
+                  ...data.travelDetails,
+                  budget: e.target.value,
                 },
               })
             }

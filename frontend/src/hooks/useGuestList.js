@@ -39,11 +39,21 @@ const useGuestList = (eventId) => {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
         });
+    
+        console.log("API Response:", response.data);
+        
+        if (!response.data || !response.data.data) {
+          console.warn("No guest data received!");
+          return;
+        }
+    
+        console.log("Dispatching data:", response.data.data);
         dispatch(addGuestList(response.data.data));
       } catch (error) {
-        console.error("Error fetching events: ", error);
+        console.error("Error fetching guests:", error);
       }
     };
+    
 
     getEventList();
   }, [eventId]); // Runs only when eventId updates

@@ -31,6 +31,8 @@ import TravelAgencyManagement from "../admin/travelAgencyManage.js";
 import BudgetManagement from "../admin/budgetManage.js";
 import GuestForm from "./guestForm.js";
 import ClientSideBar from "../client/sideBar.client.js";
+import TravelAgencyApproval from "./travelAgencyApproval.js";
+import AccommodationApproval from "./accommodationApproval.js";
 
 const Layout = () => {
   return (
@@ -89,6 +91,14 @@ const Body = () => {
         {
           path: "/guestForm",
           element : <GuestForm/>
+        },
+        {
+          path: "/travelAgencyapproval",
+          element : <TravelAgencyApproval/>
+        },
+        {
+          path: "/accommodationapproval",
+          element : <AccommodationApproval/>
         },
         {
           path: "/eventManager",

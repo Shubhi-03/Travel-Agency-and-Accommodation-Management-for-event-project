@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react"
+import DatePicker from "react-datepicker";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -92,20 +93,22 @@ const CreateAnEvent = () => {
           className="m-3 w-10/12 rounded-sm pl-5 bg-gray-300 placeholder:text-gray-600 font-bold text-lg text-gray-900"
           /> 
           <div className="flex">
-            <input
-          type="startDate"
-          placeholder="Startdate"
-          value={data.startDate}
-          onChange={(e) => setData({ ...data, startDate: e.target.value })}
-        className="m-3 w-10/12 rounded-sm pl-5 bg-gray-300 placeholder:text-gray-600 font-bold text-lg text-gray-900"
-        /> 
-        <input
-          type="endDate"
-          placeholder="EndDate"
-          value={data.endDate}
-          onChange={(e) => setData({ ...data, endDate: e.target.value })}
-        className="m-3 w-10/12 rounded-sm pl-5 bg-gray-300 placeholder:text-gray-600 font-bold text-lg text-gray-900"
-        /> 
+          <DatePicker
+    selected={data.startDate}
+    onChange={(date) => setData({ ...data, startDate: date })} // Correct handling
+    dateFormat="yyyy-MM-dd"
+    placeholderText="Select Start Date"
+    className="m-3 w-10/12 rounded-sm pl-5 bg-gray-300 placeholder:text-gray-600 font-bold text-lg text-gray-900"
+/>
+
+<DatePicker
+    selected={data.endDate}
+    onChange={(date) => setData({ ...data, endDate: date })} // Correct handling
+    dateFormat="yyyy-MM-dd"
+    placeholderText="Select End Date"
+    className="m-3 w-10/12 rounded-sm pl-5 bg-gray-300 placeholder:text-gray-600 font-bold text-lg text-gray-900"
+/>
+
           </div>
         
         <input

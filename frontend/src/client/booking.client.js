@@ -8,17 +8,15 @@ import useBookedGuest from "../hooks/useBookedGuests.js";
 const Booking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoading = useUnbookedGuest();
-  const isLoadingBooking = useBookedGuest();
+   useUnbookedGuest();
+   useBookedGuest();
   const bookedGuest = useSelector((store)=>store.client.bookedGuest); 
-  const guestList = useSelector((store) => store?.client?.unbookedGuest || []);
+  const guestList = useSelector((store) => store.client.unBookedGuest);
+  console.log("unbooked", guestList)
   
-  if (isLoading) {
-    return <div className="text-center text-gray-500">Loading guests...</div>; // Show loader
-  }
   const handleTravelBookGuest = (guest) => {
     dispatch(addSelectedGuest(guest)); 
-    navigate("/client/travelAgency-booking");  
+    navigate("/client/travelAgency");  
   };
   return (
     <div className="bg-gray-100 p-5">
@@ -29,6 +27,7 @@ const Booking = () => {
               <th className="px-4 py-2 font-bold">S.no.</th>
               <th className="px-4 py-2 font-bold">Name</th>
               <th className="px-4 py-2 font-bold">Travel Agency</th>
+              <th className="px-4 py-2 font-bold">Approval Status</th>
               <th className="px-4 py-2 font-bold">Accommodation</th>
               <th className="px-4 py-2 font-bold">Approval Status</th>
             </tr>
@@ -36,14 +35,16 @@ const Booking = () => {
           <tbody>
             {bookedGuest.length > 0 ? (
               bookedGuest.map((guest, index) => (
-                <tr key={guest._id || index} className="text-center">
+                <tr key={guest?._id || index} className="text-center">
                   <td className="px-4 py-2">{index + 1}</td>
-                  <td className="px-4 py-2">{guest.name}</td>
-                  <td className="px-4 py-2">{guest.travelAgency.name}</td>
-                  <td className="px-4 py-2">{guest.accommodation.name}</td>
-                  <td className="px-4 py-2">{guest.approvalStatus}</td>
+                  <td className="px-4 py-2">{guest?.guest?.name || "N/A"}</td>
+                  <td className="px-4 py-2">{guest?.travelAgency?.name || "N/A"}</td>
+                  <td className="px-4 py-2">{guest?.travelApprovalStatus}</td>
+                  <td className="px-4 py-2">{guest?.accommodation?.name || "N/A"}</td>
+                  <td className="px-4 py-2">{guest?.accommodationApprovalStatus }</td>
                 </tr>
               ))
+              
             ) : (
               <tr>
                 <td colSpan="7" className="px-4 py-2 text-center text-gray-500">
@@ -69,7 +70,7 @@ const Booking = () => {
             </tr>
           </thead>
           <tbody>
-            {guestList.length > 0 ? (
+            {guestList ? (
               guestList.map((guest, index) => (
                 <tr key={guest._id || index} className="text-center">
                   <td className="px-4 py-2">{index + 1}</td>

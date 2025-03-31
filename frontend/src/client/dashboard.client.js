@@ -3,8 +3,7 @@ import { useSelector } from "react-redux"
 import useClientEvent from "../hooks/useClientEvents.js"
 
 const ClientDashboard = () =>{
-    const info = useSelector((store) => store.user)
-    info = info.data.data.user
+    const info = useSelector((store) => store.user.info.data.data.user)
     console.log(info)
     useClientEvent(info.email)
     const events = useSelector((store)=>store?.client?.event)

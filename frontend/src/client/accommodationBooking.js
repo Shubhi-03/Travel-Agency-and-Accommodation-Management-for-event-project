@@ -14,9 +14,11 @@ const AccommodationBooking = ({ accommodation }) => {
       departureDate: user.departure_date || "",
       preference: "",
       venue: user.location || "",
+      budget: "",
+      accommodation_days:""
     },
     status: "Pending",
-    approvalStatus: "Pending",
+    accommodationApprovalStatus: "Pending",
   });
   
 
@@ -38,8 +40,11 @@ const AccommodationBooking = ({ accommodation }) => {
           name: "",
           accommodationDetails: {
             arrivalDate: "",
-            departureDate: "",
-            venue: ""
+            departureDate:  "",
+            preference: "",
+            venue:  "",
+            budget: "",
+            accommodation_days:""
           },
           status: "pending",
           approvalStatus: "pending",
@@ -122,6 +127,44 @@ const AccommodationBooking = ({ accommodation }) => {
                 accommodationDetails: {
                   ...data.accommodationDetails,
                   venue: e.target.value,
+                },
+              })
+            }
+            className="w-full p-2 border rounded-lg mt-1 focus:outline-none focus:ring focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-medium">
+            budget
+          </label>
+          <input
+            type="text"
+            value={data.accommodationDetails.budget}
+            onChange={(e) =>
+              setData({
+                ...data,
+                accommodationDetails: {
+                  ...data.accommodationDetails,
+                  budget: e.target.value,
+                },
+              })
+            }
+            className="w-full p-2 border rounded-lg mt-1 focus:outline-none focus:ring focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-medium">
+            Stay days
+          </label>
+          <input
+            type="text"
+            value={data.accommodationDetails.accommodation_days}
+            onChange={(e) =>
+              setData({
+                ...data,
+                accommodationDetails: {
+                  ...data.accommodationDetails,
+                  accommodation_days: e.target.value,
                 },
               })
             }
