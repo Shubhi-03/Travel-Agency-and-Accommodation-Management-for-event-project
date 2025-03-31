@@ -1,4 +1,4 @@
-import { booking } from "../models/bookings.models.js";
+import { booking} from "../models/bookings.models.js";
 import { TravelAgency } from "../models/travelAgency.models.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
@@ -36,7 +36,7 @@ const sendMail = async(to, subject,text, html) => {
     }
 }
 const createATravelAgencyBooking = asyncHandler(async (req, res) => {
-    const { guest, travelDetails, status, approvalStatus } = req.body;
+    const { guest, travelDetails, travelApprovalStatus } = req.body;
     const { travelAgency } = req.params;
 
     if (!travelAgency) throw new ApiError(400, "Travel Agency is missing.");
@@ -52,8 +52,7 @@ const createATravelAgencyBooking = asyncHandler(async (req, res) => {
         guest: guestData._id,  // ✅ Fix: Use correct guest ID
         travelDetails,
         travelAgency,
-        status,
-        approvalStatus
+        travelApprovalStatus
     });
 
     
@@ -77,7 +76,7 @@ const createATravelAgencyBooking = asyncHandler(async (req, res) => {
                     <li><strong>Venue:</strong> ${event.venue}</li>
                 </ul>
                 <p>Please review and approve the request by clicking the link below:</p>
-                <p><a href="${process.env.ORIGIN}travelAgency/approve?bookingId=${travelAgencyBooking._id}">Approve Booking</a></p>
+                <p><a href="${process.env.ORIGIN}/travelAgencyapproval?bookingId=${travelAgencyBooking._id}">Approve Booking</a></p>
              </div>`
         );
 
@@ -91,11 +90,8 @@ const createATravelAgencyBooking = asyncHandler(async (req, res) => {
 
 
 const createAccommodationBooking = asyncHandler(async(req, res)=>{
-    const { guest, accommodationDetails, status, approvalStatus } = req.body;
+    const { guest, accommodationDetails, accommodationApprovalStatus } = req.body;
     const { accommodation } = req.params;
-
-    if (!accommodation) throw new ApiError(400, "Accommodation is missing.");
-    if (!accommodationDetails) throw new ApiError(400, "Accommodation Details are important.");
 
     const guestData = await Guest.findById(guest).populate("event");
     if (!guestData || !guestData.event) throw new ApiError(404, "Event not found.");
@@ -106,8 +102,7 @@ const createAccommodationBooking = asyncHandler(async(req, res)=>{
         guest: guestData._id, 
         accommodationDetails,
         accommodation,
-        status,
-        approvalStatus
+        accommodationApprovalStatus
     });
 
     const agency = await Accommodation.findById();
@@ -130,7 +125,7 @@ const createAccommodationBooking = asyncHandler(async(req, res)=>{
                     <li><strong>Venue:</strong> ${event.venue}</li>
                 </ul>
                 <p>Please review and approve the request by clicking the link below:</p>
-                <p><a href="${process.env.ORIGIN}accommodation/approve?bookingId=${accommodationBooking._id}">Approve Booking</a></p>
+                <p><a href="${process.env.ORIGIN}/accommodationapproval?bookingId=${accommodationBooking._id}">Approve Booking</a></p>
              </div>`
         );
 
@@ -143,19 +138,62 @@ const createAccommodationBooking = asyncHandler(async(req, res)=>{
     
 })
 
-const getTravelAgencyBookings = asyncHandler(async(req, res)=>{
-    const bookings = await booking.find({ travelAgency: { $ne: null } })
-        .populate('name', 'username email') 
-        .populate('travelAgency', 'name POC_Details travelMode') // Populate TravelAgency details
-        .sort({ createdAt: -1 }); 
-    if (!bookings || bookings.length === 0) {
-        return new ApiError(404, null, "Travel Bookings are not fetched correctly.");
-    }
-    return res.status(200)
-        .json(new ApiResponse(200, bookings, "Travel bookings are fetched successfully."))
-    
-})
+const getTravelAgencyBookings = asyncHandler(async (req, res, next) => {
+    try {
+        const bookings = await booking.find({ travelAgency: { $ne: null } })
+            .populate('guest', 'name email phoneNumber')  
+            .populate('travelAgency', 'name')
+            .populate('accommodation', 'name')
+            .sort({ createdAt: -1 });
 
+        if (!bookings.length) {
+            return res.status(200).json(new ApiResponse(200, [], "No travel bookings found."));
+        }
+
+        return res.status(200).json(new ApiResponse(200, bookings, "Travel bookings fetched successfully."));
+    } catch (error) {
+        return next(new ApiError(500, null, "Internal Server Error"));
+    }
+});
+
+
+const travelAgencyApproval = asyncHandler(async (req, res) => {
+    const { travelApprovalStatus } = req.body;
+    const bookingId = req.query.bookingId;
+
+    // Validate travel agency existence
+    const travelAgency = await TravelAgency.findById(travelAgencyId);
+    if (!travelAgency) {
+        return res.status(400).json(new ApiError(400, [], "Travel Agency not found."));
+    }
+
+    // Validate booking existence
+    const bookingData = await booking.findById(bookingId);
+    if (!bookingData) {
+        return res.status(400).json(new ApiError(400, [], "Booking not found."));
+    }
+
+    // Update booking with new approval status
+    bookingData.travelApprovalStatus = travelApprovalStatus;
+    await bookingData.save();
+
+    return res.status(200).json(new ApiResponse(200, bookingData, "Travel agency approval status updated successfully."));
+});
+
+const accommodationApproval = asyncHandler(async (req, res) => {
+    const { accommodationApprovalStatus } = req.body;
+    const bookingId = req.query.bookingId;
+
+    const booking = await booking.findById(bookingId);
+    if (!booking) {
+        return res.status(400).json(new ApiError(400, [], "Booking not found."));
+    }
+
+    booking.accommodationApprovalStatus = accommodationApprovalStatus;
+    await booking.save();
+
+    return res.status(200).json(new ApiResponse(200, booking, "Accommodation approval status updated successfully."));
+});
 const getAccommodationBookings = asyncHandler(async(req, res)=>{
     const bookings = await booking.find({ accommodation: { $ne: null } })
         .populate('name', 'username email') 
@@ -173,6 +211,29 @@ const getAccommodationBookings = asyncHandler(async(req, res)=>{
     });
 })
 
+const getBookingById = asyncHandler(async (req, res) => {
+    try {
+        const { bookingId } = req.query;
+
+        if (!bookingId) {
+            return next(new ApiError(400, null, "Booking ID is required."));
+        }
+
+        const bookingData = await booking.findById(bookingId)
+            .populate('guest', 'name email phoneNumber')  
+            .populate('travelAgency', 'name')
+            .populate('accommodation', 'name');
+
+        if (!bookingData) {
+            return next(new ApiError(404, null, "Booking not found."));
+        }
+
+        return res.status(200).json(new ApiResponse(200, bookingData, "Booking fetched successfully."));
+    } catch (error) {
+        return next(new ApiError(500, null, "Internal Server Error"));
+    }
+});
+
 const deleteTravelAgencyBooking = asyncHandler(async(req, res)=>{
 
 })
@@ -186,5 +247,9 @@ export {
     getAccommodationBookings,
     getTravelAgencyBookings,
     deleteAccommodation,
-    deleteTravelAgencyBooking
+    deleteTravelAgencyBooking,
+    travelAgencyApproval,
+    accommodationApproval,
+    getBookingById,
+    
 }

@@ -1,3 +1,4 @@
+import { booking } from "../models/bookings.models.js";
 import { Event } from "../models/events.models.js";
 import { Guest } from "../models/guests.models.js";
 import { ApiError } from "../utils/apiError.js";
@@ -128,5 +129,28 @@ const addGuest = asyncHandler(async (req, res, next) => {
   return res.status(200).json(new ApiResponse(200, guest, "Guest added successfully."));
 });
 
+const getUnbookedGuests = asyncHandler(async (req, res, next) => {
+    try {
+        const bookedGuestIds = await booking.distinct('guest', { guest: { $ne: null } });
+        console.log("Booked Guest IDs:", bookedGuestIds);
 
-export { getGuestList, getEvents, addGuest };
+        const allGuests = await Guest.find(); // Fetch all guests with details
+        console.log("All Guests:", allGuests);
+
+        const bookedGuestIdsSet = new Set(bookedGuestIds.map(id => id.toString()));
+
+        // Filter guests who are NOT in bookedGuestIds
+        const unbookedGuests = allGuests.filter(guest => !bookedGuestIdsSet.has(guest._id.toString()));
+
+        console.log("Unbooked Guests:", unbookedGuests);
+
+        return res.status(200).json(new ApiResponse(200, unbookedGuests, "Successfully retrieved unbooked guests."));
+    } catch (error) {
+        console.error("Error in getUnbookedGuests:", error);
+        return next(new ApiError(500, "Error fetching guest details"));
+    }
+});
+
+
+
+export { getGuestList, getEvents, addGuest, getUnbookedGuests };

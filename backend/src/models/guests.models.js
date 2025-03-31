@@ -1,9 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose, { mongo } from 'mongoose';
 
 const GuestSchema = new mongoose.Schema({
-    guestId : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+    name : {
+        type:String,
+        require:true
+    },
+    email : {
+        type:String,
+        require:true
+    },
+    phoneNumber : {
+        type:String,
+        require:true
     },
     departure_date : {
         type : Date
@@ -14,8 +22,21 @@ const GuestSchema = new mongoose.Schema({
     location : {
         type : String
     },
-    Accommodation_days : {
+    accommodation_days : {
         type : Number
+    },
+    modeOfTravel:{
+        type:String
+    },
+    formStatus:{
+        type:Boolean
+    },
+    comment:{
+        type : String
+    },
+    event : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref : 'Event'
     }
 
 }, {timestamps : true})

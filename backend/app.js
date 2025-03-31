@@ -54,5 +54,5 @@ app.use("/api/v1/events", eventRouter)
 app.use("/api/v1/clients", clientRouter)
 app.use("/api/v1/admin", adminRouter)
 app.use("/api/v1/booking", bookingRouter)
-app.use("/api/v1/guest", guestRouter)
+app.use("/api/v1/guests", guestRouter)
 export { app };

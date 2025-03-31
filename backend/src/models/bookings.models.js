@@ -3,15 +3,22 @@ import mongoose from 'mongoose';
 const BookingsSchema = new mongoose.Schema({
     guest : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref : 'Guest'
     },
     travelDetails : {
-        type : String,
-        require : true
+        arrivalDate :{type:Date},
+        departureDate :{type:Date},
+        preference :{type:String},
+        venue :{type:String},
+        budget :{type:Number},
     },
     accommodationDetails : {
-        type : String,
-        require : true
+        arrivalDate :{type:Date},
+        departureDate :{type:Date},
+        preference :{type:String},
+        venue :{type:String},
+        budget :{type:Number},
+        accommodation_days :{type:Number}
     },
     details: {
         type : String
@@ -24,11 +31,11 @@ const BookingsSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Accommodations'
     },
-    approvalStatus : {
+    travelApprovalStatus : {
         type : Boolean
     },
-    status : {
-        type : String
+    accommodationApprovalStatus : {
+        type : Boolean
     }
 
 }, {timestamps : true})
