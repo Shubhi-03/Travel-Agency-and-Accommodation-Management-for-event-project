@@ -4,7 +4,7 @@ import { accommodationApproval, createAccommodationBooking, createATravelAgencyB
 const router = Router();
 
 router.post('/travelAgencyBooking/:travelAgency', createATravelAgencyBooking);
-router.post('/accommodationBooking', createAccommodationBooking);
+router.post('/accommodationBooking/:accommodation', createAccommodationBooking);
 router.get('/getTravelBookings', getTravelAgencyBookings);
 router.get('/bookingDetails', getBookingById);
 router.post('/travelApproval', travelAgencyApproval)

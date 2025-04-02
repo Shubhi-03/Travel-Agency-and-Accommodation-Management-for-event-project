@@ -49,7 +49,7 @@ const createATravelAgencyBooking = asyncHandler(async (req, res) => {
 
     // Create booking
     const travelAgencyBooking = await booking.create({
-        guest: guestData._id,  // ✅ Fix: Use correct guest ID
+        guest: guestData._id,  
         travelDetails,
         travelAgency,
         travelApprovalStatus
@@ -93,8 +93,11 @@ const createAccommodationBooking = asyncHandler(async(req, res)=>{
     const { guest, accommodationDetails, accommodationApprovalStatus } = req.body;
     const { accommodation } = req.params;
 
+    if (!accommodation) throw new ApiError(400, "Accommodation is missing.");
+    if (!accommodation) throw new ApiError(400, "Accommodations are important.");
+
     const guestData = await Guest.findById(guest).populate("event");
-    if (!guestData || !guestData.event) throw new ApiError(404, "Event not found.");
+    if (!guestData || !guestData.event) throw new ApiError(404, guestData, "Event not found.");
     const event = guestData.event;
 
     // Create booking
@@ -105,7 +108,7 @@ const createAccommodationBooking = asyncHandler(async(req, res)=>{
         accommodationApprovalStatus
     });
 
-    const agency = await Accommodation.findById();
+    const agency = await Accommodation.findById(accommodation);
     if (!agency) throw new ApiError(404, "Accommodation not found.");
 
     try {
@@ -134,7 +137,7 @@ const createAccommodationBooking = asyncHandler(async(req, res)=>{
         throw new ApiError(500, "Failed to send emails.");
     }
 
-    return res.status(200).json(new ApiResponse(200, travelAgencyBooking, "Booking request is sent."));
+    return res.status(200).json(new ApiResponse(200, accommodationBooking, "Booking request is sent."));
     
 })
 
@@ -161,13 +164,8 @@ const travelAgencyApproval = asyncHandler(async (req, res) => {
     const { travelApprovalStatus } = req.body;
     const bookingId = req.query.bookingId;
 
-    // Validate travel agency existence
-    const travelAgency = await TravelAgency.findById(travelAgencyId);
-    if (!travelAgency) {
-        return res.status(400).json(new ApiError(400, [], "Travel Agency not found."));
-    }
+    
 
-    // Validate booking existence
     const bookingData = await booking.findById(bookingId);
     if (!bookingData) {
         return res.status(400).json(new ApiError(400, [], "Booking not found."));
@@ -211,7 +209,7 @@ const getAccommodationBookings = asyncHandler(async(req, res)=>{
     });
 })
 
-const getBookingById = asyncHandler(async (req, res) => {
+const getBookingById = asyncHandler(async (req, res, next) => {
     try {
         const { bookingId } = req.query;
 
