@@ -17,10 +17,9 @@ const AccommodationBooking = ({ accommodation }) => {
       budget: "",
       accommodation_days:""
     },
-    status: "Pending",
-    accommodationApprovalStatus: "Pending",
+    accommodationApprovalStatus: false,
   });
-  
+  console.log(accommodation)
 
   const makeABooking = async (e) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ const AccommodationBooking = ({ accommodation }) => {
     const { user, accommodationDetails } = data;
     try {
       const response = await axios.post(
-        `/api/v1/booking/accommodationBooking/${accommodation._id}`, 
+        `/api/v1/booking/accommodationBooking/${accommodation?._id}`, 
         data,
         { withCredentials: true }
       );

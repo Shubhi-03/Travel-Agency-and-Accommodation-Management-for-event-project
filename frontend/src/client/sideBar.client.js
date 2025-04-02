@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const ClientSideBar = () => {
     return <>
-    <div className="w-1/6 bg-slate-300 h-screen">
+    <div className="w-1/6 bg-slate-300">
         <ul className="text-center font-semibold p-2 text-lg text-gray-700">
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "">DashBoard</Link></li>
             <li className="bg-slate-400 m-3 rounded-md p-1"><Link to = "events">Events</Link></li>

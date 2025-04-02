@@ -30,10 +30,28 @@ const EventContainer = ({event, guestList}) =>{
     return <>
     <div className="flex flex-col ">
             <div className=" text-3xl font-bold text-gray-700 rounded-md text-center p-2">{event?.name}</div>
-            <div className="flex justify-between m-14 text-center">
+            {/* <div className="flex justify-between m-14 text-center">
                 <div className="bg-white text-xl font-semibold text-gray-700 rounded-md w-2/5 p-2">{event?.startDate.split("T")[0]}</div>
                 <div className="bg-white text-xl font-semibold text-gray-700 rounded-md w-2/5 p-2">{event?.venue}</div>
-            </div>
+            </div> */}
+            <div className="p-6 ">
+      <div className="grid grid-cols-2 gap-6">
+        
+        <div className="flex flex-col">
+          <span className="text-xs font-semibold text-gray-500">Start Date</span>
+          <span className="bg-gray-300 text-gray-700 font-bold text-lg p-1 rounded-md text-center">
+          {event?.startDate.split("T")[0]}
+          </span>
+        </div>
+
+        <div className="flex flex-col">
+          <span className="text-xs font-semibold text-gray-500">Venue</span>
+          <span className="bg-gray-300 text-gray-700 font-bold text-lg p-1 rounded-md text-center">
+          {event?.venue}
+          </span>
+        </div>
+      </div>
+    </div>
             <div className="text-2xl font-bold text-gray-700 rounded-md text-left p-2 border-t-2 border-b-2 border-gray-300 mt-6 mb-6">Guest Details:</div>
             <div className="flex gap-4 mb-4 items-end">
         <button  className="flex items-center font-medium text-lg gap-2 px-2 py-1 bg-gray-500 hover:bg-gray-700 text-white rounded" onClick={()=>addGuest()}>

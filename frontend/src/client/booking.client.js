@@ -18,6 +18,10 @@ const Booking = () => {
     dispatch(addSelectedGuest(guest)); 
     navigate("/client/travelAgency");  
   };
+  const handleAccommodationBookGuest = (guest) =>{
+    dispatch(addSelectedGuest(guest));
+    navigate("/client/accommodation")
+  }
   return (
     <div className="bg-gray-100 p-5">
       <h1 className="font-bold text-2xl text-gray-600 m-2 text-center">Booked Guests</h1>
@@ -83,7 +87,7 @@ const Booking = () => {
                   className="bg-blue-500 text-white px-3 py-1 rounded" onClick={() => handleTravelBookGuest(guest)}>Book</button>
                   </td>
                   <td className="px-4 py-2 text-right">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded">Book</button>
+                    <button className="bg-blue-500 text-white px-3 py-1 rounded" onClick={() => handleAccommodationBookGuest(guest)}>Book</button>
                   </td>
                 </tr>
               ))

@@ -20,12 +20,6 @@ return (
             >
               —
             </button>
-            {/* <button
-              
-              className="mt-4 w-full bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition"
-            >
-              -
-            </button> */}
             <TravelBooking
               travelAgency={selectedAgency}
               onClose={() => setSelectedAgency(null)}

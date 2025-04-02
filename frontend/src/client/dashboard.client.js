@@ -55,19 +55,39 @@ const ClientDashboard = () =>{
           )}
         </div>
 
-        <div className="flex flex-col bg-white m-10 w-2/3 p-5 rounded-md shadow-md">
-          <div className="m-5 text-lg rounded-sm shadow-md font-medium bg-slate-200 px-4 py-2 text-center">
+        <div className="bg-white p-6 rounded-lg shadow-lg w-9/12 ">
+      <div className="grid grid-cols-2 gap-6">
+        
+        <div className="flex flex-col">
+          <span className="text-xs font-semibold text-gray-500">Name</span>
+          <span className="bg-gray-300 text-black font-bold text-lg p-1 rounded-md">
             {info.name}
-          </div>
-          <ul className="flex justify-between text-center">
-            <li className="m-5 text-lg rounded-sm shadow-md font-medium bg-slate-200 px-4 py-2">
-              {info.email}
-            </li>
-            <li className="m-5 text-lg rounded-sm shadow-md font-medium bg-slate-200 px-4 py-2">
-              {info.phoneNumber}
-            </li>
-          </ul>
+          </span>
         </div>
+
+        <div className="flex flex-col">
+          <span className="text-xs font-semibold text-gray-500">E-mail</span>
+          <span className="bg-gray-300 text-black font-bold text-lg p-1 rounded-md">
+            {info.email}
+          </span>
+        </div>
+
+        <div className="flex flex-col">
+          <span className="text-xs font-semibold text-gray-500">Phone Number</span>
+          <span className="bg-gray-300 text-black font-bold text-lg p-1 rounded-md">
+            {info.phoneNumber}
+          </span>
+        </div>
+
+        <div className="flex flex-col">
+          <span className="text-xs font-semibold text-gray-500">Date of Joining</span>
+          <span className="bg-gray-300 text-black font-bold text-lg p-1 rounded-md">
+          {new Date(info.updatedAt).toISOString().split("T")[0]}
+          </span>
+        </div>
+
+      </div>
+    </div>
       </div>
 
       <div className="flex space-x-6 border-b border-gray-300 text-black font-semibold px-5 mt-5">
